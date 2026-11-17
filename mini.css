@@ -1,0 +1,156 @@
+body {
+    background-color: #101219;
+    color: #f4f5f8;
+    font-family: 'Inter', 'Malgun Gothic', sans-serif;
+}
+
+.box {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+header, footer {
+    padding: 15px 0;
+    background-color: #151821;
+}
+
+header a {
+    color: #d9fa72;
+    font-size: 200%;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: #ebffa8;
+}
+
+header nav {
+    margin-top: 15px;
+}
+
+header form {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+#search, header .navbar-toggler {
+    border: 0;
+    background-color: #232735;
+    color: #f4f5f8;
+}
+
+#search {
+    width: 100%;
+    padding: 10px;
+}
+
+#menu {
+    border: 0;
+    background-color: #191c26;
+}
+
+#menu h2 {
+    font-size: 125%;
+}
+
+#menu a, #games a {
+    color: #f4f5f8;
+    text-decoration: none;
+}
+
+#menu a:hover {
+    background-color: #232735;
+    color: #d9fa72;
+}
+
+main {
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+main h1, main h2 {
+    margin-bottom: 15px;
+    font-size: 160%;
+    font-weight: bold;
+}
+
+.control-prev, .control-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 15%;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    color: #bbc0ce;
+}
+
+.control-prev {
+    left: 0;
+}
+
+.control-next {
+    right: 0;
+}
+
+.control-prev:hover, .control-next:hover {
+    color: #f4f5f8;
+}
+
+.prev-icon, .next-icon {
+    font-size: 200%;
+}
+
+.game1, .game1-thumb {
+    background-color: #22263a;
+}
+
+.game2, .game2-thumb {
+    background-color: #1c302f;
+}
+
+#games {
+    margin-top: 35px;
+}
+
+@media (min-width: 580px) {
+    #games article {
+        width: 50%;
+    }
+}
+
+.game1-thumb, .game2-thumb {
+    padding: 25% 0;
+    text-align: center;
+}
+
+img.game1-thumb, img.game2-thumb {
+    width: 100%;
+    padding: 0;
+}
+
+#games h3 {
+    margin: 10px 0 5px;
+    font-size: 125%;
+}
+
+#games a:hover h3 {
+    color: #d9fa72;
+}
+
+main p, footer {
+    color: #c2c6d2;
+    margin-bottom: 0;
+}
+
+#empty {
+    display: none;
+}
+
+footer {
+    font-size: 90%;
+}
