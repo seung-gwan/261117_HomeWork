@@ -66,6 +66,19 @@ header form {
     color: #d9fa72;
 }
 
+#lang {
+    width: 100%;
+    border: 0;
+    background-color: transparent;
+    color: #f4f5f8;
+    text-align: left;
+}
+
+#lang:hover {
+    background-color: #232735;
+    color: #d9fa72;
+}
+
 main {
     padding-top: 30px;
     padding-bottom: 40px;
@@ -75,6 +88,33 @@ main h1, main h2 {
     margin-bottom: 15px;
     font-size: 160%;
     font-weight: bold;
+}
+
+.c-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.c-item {
+    display: none;
+}
+
+.c-item-active {
+    display: block;
+}
+
+.carousel-indicators button {
+    width: 30px;
+    height: 5px;
+    margin: 0 5px;
+    padding: 0;
+    border: 0;
+    background-color: #bbc0ce;
+}
+
+.carousel-indicators .active {
+    background-color: #f4f5f8;
 }
 
 .control-prev, .control-next {
@@ -148,6 +188,10 @@ main p, footer {
 }
 
 #empty {
+    display: none;
+}
+
+.v-hidden {
     display: none;
 }
 

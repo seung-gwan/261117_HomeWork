@@ -22,13 +22,13 @@
             </div>
             <nav class="d-flex">
                 <form onsubmit="return false">
-                    <label class="visually-hidden" for="search">게임 검색</label>
+                    <label class="v-hidden" for="search">게임 검색</label>
                     <input id="search" class="rounded-0" type="search"
                            placeholder="게임 검색" oninput="searchGames()">
                 </form>
                 <button type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
                     ☰
-                    <span class="visually-hidden">메뉴 열기</span>
+                    <span class="v-hidden">메뉴 열기</span>
                 </button>
             </nav>
         </div>
@@ -37,10 +37,10 @@
     <!-- Bootstrap 메뉴 -->
     <div id="menu" class="offcanvas offcanvas-end" tabindex="-1" aria-label="메뉴">
         <div class="offcanvas-header">
-            <h2 class="offcanvas-title">메뉴</h2>
+            <h2 id="menu-title" class="offcanvas-title">메뉴</h2>
             <button type="button" data-bs-dismiss="offcanvas">
                 ×
-                <span class="visually-hidden">메뉴 닫기</span>
+                <span class="v-hidden">메뉴 닫기</span>
             </button>
         </div>
         <nav class="offcanvas-body">
@@ -48,60 +48,60 @@
             <a class="nav-link" href="#games" onclick="return closeMenu(this.href)">GAMES</a>
             <a class="nav-link" href="community.html">COMMUNITY</a>
             <a class="nav-link" href="news.html">NEWS</a>
+            <button id="lang" class="nav-link" type="button">ENGLISH</button>
         </nav>
     </div>
 
     <main class="box">
         <section>
-            <h1>추천 게임</h1>
-            <!-- Bootstrap 슬라이드 -->
-            <div id="slide" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <h1 id="best-title">추천 게임</h1>
+            <div id="slide" class="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#slide" data-bs-slide-to="0" class="active">
-                        <span class="visually-hidden">게임 1</span>
+                    <button type="button" class="active">
+                        <span class="v-hidden">게임 1</span>
                     </button>
-                    <button type="button" data-bs-target="#slide" data-bs-slide-to="1">
-                        <span class="visually-hidden">게임 2</span>
+                    <button type="button">
+                        <span class="v-hidden">게임 2</span>
                     </button>
                 </div>
 
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
+                <div class="c-inner">
+                    <div class="c-item-active">
                         <img src="game1.jpg" class="d-block w-100" alt="게임 1 화면">
                         <div class="ratio ratio-21x9 game1"></div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="c-item">
                         <img src="game2.jpg" class="d-block w-100" alt="게임 1 화면">
                         <div class="ratio ratio-21x9 game2"></div>
                     </div>
                 </div>
 
-                <button class="control-prev" type="button" data-bs-target="#slide" data-bs-slide="prev">
+                <button class="control-prev" type="button">
                     <span class="prev-icon" aria-hidden="true">‹</span>
-                    <span class="visually-hidden">이전 게임</span>
+                    <span class="v-hidden">이전 게임</span>
                 </button>
-                <button class="control-next" type="button" data-bs-target="#slide" data-bs-slide="next">
+                <button class="control-next" type="button">
                     <span class="next-icon" aria-hidden="true">›</span>
-                    <span class="visually-hidden">다음 게임</span>
+                    <span class="v-hidden">다음 게임</span>
                 </button>
             </div>
         </section>
 
         <section id="games">
-            <h2>게임 목록</h2>
+            <h2 id="list-title">게임 목록</h2>
             <div class="row g-4">
                 <article>
                     <a class="d-block" href="game1.html">
                         <img class="game1-thumb" src="game1-thumb.jpg" alt="게임 1 썸네일">
-                        <h3>게임 1</h3>
-                        <p>첫 번째 게임의 간단한 소개를 입력하세요.</p>
+                        <h3 id="g1-name">게임 1</h3>
+                        <p id="g1-info">첫 번째 게임의 간단한 소개를 입력하세요.</p>
                     </a>
                 </article>
                 <article>
                     <a class="d-block" href="game2.html">
                         <img class="game2-thumb" src="game2-thumb.jpg" alt="게임 2 썸네일">
-                        <h3>게임 2</h3>
-                        <p>두 번째 게임의 간단한 소개를 입력하세요.</p>
+                        <h3 id="g2-name">게임 2</h3>
+                        <p id="g2-info">두 번째 게임의 간단한 소개를 입력하세요.</p>
                     </a>
                 </article>
             </div>
@@ -112,14 +112,109 @@
     <footer>
         <div class="box">
             <span>mini</span>
-            <span class="float-end">누적 방문 —</span>
+            <span id="visit" class="float-end">누적 방문 —</span>
         </div>
     </footer>
 
     <script>
+        let slideIndex = 0;
+        let isEng = false;
+
         window.onload = function () {
             searchGames();
+
+            let prevBtn = document.querySelector('.control-prev');
+            let nextBtn = document.querySelector('.control-next');
+            let dots = document.querySelectorAll('.carousel-indicators button');
+            let langBtn = document.getElementById('lang');
+
+            prevBtn.addEventListener('click', function () {
+                showSlide(slideIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', function () {
+                showSlide(slideIndex + 1);
+            });
+
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].addEventListener('click', function () {
+                    showSlide(i);
+                });
+            }
+
+            langBtn.addEventListener('click', function () {
+                changeLang();
+            });
+
+            setInterval(function () {
+                showSlide(slideIndex + 1);
+            }, 3000);
         };
+
+        function changeLang() {
+            let langBtn = document.getElementById('lang');
+            let search = document.getElementById('search');
+            let menuTitle = document.getElementById('menu-title');
+            let bestTitle = document.getElementById('best-title');
+            let listTitle = document.getElementById('list-title');
+            let g1Name = document.getElementById('g1-name');
+            let g1Info = document.getElementById('g1-info');
+            let g2Name = document.getElementById('g2-name');
+            let g2Info = document.getElementById('g2-info');
+            let empty = document.getElementById('empty');
+            let visit = document.getElementById('visit');
+
+            if (isEng == false) {
+                isEng = true;
+                langBtn.textContent = 'KOREA';
+                search.setAttribute('placeholder', 'Search games');
+                menuTitle.textContent = 'MENU';
+                bestTitle.textContent = 'Featured Games';
+                listTitle.textContent = 'Game List';
+                g1Name.textContent = 'Game 1';
+                g1Info.textContent = 'Enter a short description for Game 1.';
+                g2Name.textContent = 'Game 2';
+                g2Info.textContent = 'Enter a short description for Game 2.';
+                empty.textContent = 'No games found.';
+                visit.textContent = 'Total Visits —';
+            } else {
+                isEng = false;
+                langBtn.textContent = 'ENGLISH';
+                search.setAttribute('placeholder', '게임 검색');
+                menuTitle.textContent = '메뉴';
+                bestTitle.textContent = '추천 게임';
+                listTitle.textContent = '게임 목록';
+                g1Name.textContent = '게임 1';
+                g1Info.textContent = '첫 번째 게임의 간단한 소개를 입력하세요.';
+                g2Name.textContent = '게임 2';
+                g2Info.textContent = '두 번째 게임의 간단한 소개를 입력하세요.';
+                empty.textContent = '검색 결과가 없습니다.';
+                visit.textContent = '누적 방문 —';
+            }
+
+            searchGames();
+        }
+
+        function showSlide(next) {
+            let items = document.querySelectorAll('.c-inner > div');
+            let dots = document.querySelectorAll('.carousel-indicators button');
+
+            if (next >= items.length) {
+                next = 0;
+            }
+            if (next < 0) {
+                next = items.length - 1;
+            }
+
+            for (let i = 0; i < items.length; i++) {
+                items[i].setAttribute('class', 'c-item');
+                dots[i].setAttribute('class', '');
+            }
+
+            items[next].setAttribute('class', 'c-item-active');
+            dots[next].setAttribute('class', 'active');
+            slideIndex = next;
+        }
 
         function hasWord(text, word) {
             for (let start = 0; start + word.length <= text.length; start++) {
