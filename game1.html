@@ -1,11 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>로또 번호 뽑기 | mini</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="mini.css">
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    
+    <header>
+        <div class="box text-center">
+            <a href="index.html">mini</a>
+        </div>
+    </header>
+
+    <main id="lotto" class="box">
+        <a href="index.html#games">← 게임 목록</a>
+        <h1>로또 번호 뽑기</h1>
+        <p>고정할 번호를 선택하거나, 바로 뽑기를 눌러 주세요.</p>
+
+        <div id="balls" role="status">
+            <span class="ball">?</span>
+            <span class="ball">?</span>
+            <span class="ball">?</span>
+            <span class="ball">?</span>
+            <span class="ball">?</span>
+            <span class="ball">?</span>
+        </div>
+
+        <p id="fixed">고정 번호 없음</p>
+        <button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#pick">
+            번호 선택
+        </button>
+        <button id="draw" class="btn btn-primary" type="button">뽑기</button>
+    </main>
+
+    <!-- Bootstrap 번호 선택 창 -->
+    <div id="pick" class="modal fade" tabindex="-1" aria-labelledby="pick-title">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="pick-title" class="modal-title">고정 번호 선택</h2>
+                    <button type="button" data-bs-dismiss="modal" aria-label="닫기">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>선택한 번호를 유지하고 나머지 번호를 뽑습니다.</p>
+                    <p id="count" role="status">선택 0 / 6</p>
+                    <div id="nums" class="d-flex flex-wrap"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="clear" class="btn btn-secondary" type="button">선택 해제</button>
+                    <button class="btn btn-primary" type="button" data-bs-dismiss="modal">선택 완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let html = '';
+        for (let i = 1; i <= 45; i++) {
+            html += '<input class="btn-check" type="checkbox" id="n' + i + '">';
+            html += '<label class="btn" for="n' + i + '">' + i + '</label>';
+        }
+        document.getElementById('nums').innerHTML = html;
+
+        let checks = document.querySelectorAll('#nums input');
+        let balls = document.querySelectorAll('#balls .ball');
+
+        for (let i = 0; i < checks.length; i++) {
+            checks[i].addEventListener('click', choose);
+        }
+
+        function choose() {
+            let count = 0;
+            let text = '';
+
+            for (let i = 0; i < checks.length; i++) {
+                if (checks[i].checked) {
+                    count++;
+                    text += ' ' + (i + 1);
+                }
+            }
+
+            for (let i = 0; i < checks.length; i++) {
+                checks[i].disabled = count == 6 && !checks[i].checked;
+            }
+
+            document.getElementById('count').textContent = '선택 ' + count + ' / 6';
+            if (count == 0) {
+                document.getElementById('fixed').textContent = '고정 번호 없음';
+            } else {
+                document.getElementById('fixed').textContent = '고정 번호' + text;
+            }
+
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].textContent = '?';
+                balls[i].style.backgroundColor = '#232735';
+                balls[i].style.color = '#f4f5f8';
+            }
+        }
+
+        document.getElementById('clear').addEventListener('click', function () {
+            for (let i = 0; i < checks.length; i++) {
+                checks[i].checked = false;
+            }
+            choose();
+        });
+
+        document.getElementById('draw').addEventListener('click', function () {
+            let nums = [];
+            let bag = [];
+            let left = 0;
+
+            for (let i = 0; i < checks.length; i++) {
+                if (checks[i].checked) {
+                    nums[nums.length] = i + 1;
+                } else {
+                    bag[left] = i + 1;
+                    left++;
+                }
+            }
+
+            while (nums.length < 6) {
+                let at = Math.floor(Math.random() * left);
+                nums[nums.length] = bag[at];
+                bag[at] = bag[left - 1];
+                left--;
+            }
+
+            for (let i = 0; i < nums.length; i++) {
+                for (let j = i + 1; j < nums.length; j++) {
+                    if (nums[i] > nums[j]) {
+                        let temp = nums[i];
+                        nums[i] = nums[j];
+                        nums[j] = temp;
+                    }
+                }
+            }
+
+            for (let i = 0; i < balls.length; i++) {
+                balls[i].textContent = nums[i];
+                balls[i].style.color = '#182028';
+
+                if (nums[i] <= 10) {
+                    balls[i].style.backgroundColor = '#fbc400';
+                } else if (nums[i] <= 20) {
+                    balls[i].style.backgroundColor = '#69c8f2';
+                } else if (nums[i] <= 30) {
+                    balls[i].style.backgroundColor = '#ff7272';
+                } else if (nums[i] <= 40) {
+                    balls[i].style.backgroundColor = '#aaaaaa';
+                } else {
+                    balls[i].style.backgroundColor = '#b0d840';
+                }
+            }
+        });
+    </script>
 </body>
 </html>

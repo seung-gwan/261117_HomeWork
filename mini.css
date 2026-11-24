@@ -1,82 +1,17 @@
-body {
-    background-color: #101219;
-    color: #f4f5f8;
-    font-family: 'Inter', 'Malgun Gothic', sans-serif;
-}
-
 .box {
+    background-color: transparent;
     width: 90%;
-    max-width: 1300px;
     margin: 0 auto;
+    max-width: 1300px;
 }
 
 header, footer {
-    padding: 15px 0;
     background-color: #151821;
+    padding: 15px 0;
 }
 
-header a {
-    color: #d9fa72;
-    font-size: 200%;
-    font-weight: bold;
-    letter-spacing: 5px;
-    text-decoration: none;
-}
-
-header a:hover {
-    color: #ebffa8;
-}
-
-header nav {
-    margin-top: 15px;
-}
-
-header form {
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-#search, header .navbar-toggler {
-    border: 0;
-    background-color: #232735;
-    color: #f4f5f8;
-}
-
-#search {
-    width: 100%;
-    padding: 10px;
-}
-
-#menu {
-    border: 0;
-    background-color: #191c26;
-}
-
-#menu h2 {
-    font-size: 125%;
-}
-
-#menu a, #games a {
-    color: #f4f5f8;
-    text-decoration: none;
-}
-
-#menu a:hover {
-    background-color: #232735;
-    color: #d9fa72;
-}
-
-#lang {
-    width: 100%;
-    border: 0;
-    background-color: transparent;
-    color: #f4f5f8;
-    text-align: left;
-}
-
-#lang:hover {
-    background-color: #232735;
-    color: #d9fa72;
+.game2, .game2-thumb {
+    background-color: #1c302f;
 }
 
 main {
@@ -84,77 +19,63 @@ main {
     padding-bottom: 40px;
 }
 
-main h1, main h2 {
-    margin-bottom: 15px;
-    font-size: 160%;
+header a {
+    letter-spacing: 5px;
+    text-decoration: none;
     font-weight: bold;
+    color: #d9fa72;
+    font-size: 200%;
 }
 
-.c-inner {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
+#menu a:hover, #lang:hover {
+    color: #d9fa72;
+    background-color: #232735;
 }
 
-.c-item {
+header a:hover {
+    color: #ebffa8;
+}
+
+footer {
+    font-size: 90%;
+}
+
+header form {
+    margin-right: 10px;
+    margin-right: 10px;
+    flex-grow: 1;
+}
+
+.v-hidden {
     display: none;
-}
-
-.c-item-active {
-    display: block;
-}
-
-.carousel-indicators button {
-    width: 30px;
-    height: 5px;
-    margin: 0 5px;
-    padding: 0;
-    border: 0;
-    background-color: #bbc0ce;
-}
-
-.carousel-indicators .active {
-    background-color: #f4f5f8;
-}
-
-.control-prev, .control-next {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    width: 15%;
-    padding: 0;
-    border: 0;
-    background-color: transparent;
-    color: #bbc0ce;
-}
-
-.control-prev {
-    left: 0;
 }
 
 .control-next {
     right: 0;
 }
 
-.control-prev:hover, .control-next:hover {
-    color: #f4f5f8;
+.link-nav {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 15px;
 }
 
-.prev-icon, .next-icon {
-    font-size: 200%;
+#lang {
+    background-color: transparent;
+    border: 0;
+    text-align: left;
 }
 
-.game1, .game1-thumb {
-    background-color: #22263a;
+.game1-thumb img, #slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-.game2, .game2-thumb {
-    background-color: #1c302f;
-}
-
-#games {
-    margin-top: 35px;
+#search {
+    width: 100%;
+    padding: 10px;
 }
 
 @media (min-width: 580px) {
@@ -163,23 +84,97 @@ main h1, main h2 {
     }
 }
 
+#menu h2 {
+    font-size: 125%;
+}
+
+body {
+    font-style: normal;
+    font-family: 'Inter', 'Malgun Gothic', sans-serif;
+    color: #f4f5f8;
+    background-color: #101219;
+}
+
 .game1-thumb, .game2-thumb {
-    padding: 25% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
     text-align: center;
 }
 
-img.game1-thumb, img.game2-thumb {
-    width: 100%;
-    padding: 0;
+.nav-end {
+    display: flex;
+    border: 0;
+    top: 0;
+    position: fixed;
+    transition: transform .3s ease-in-out;
+    right: 0;
+    transform: translateX(100%);
+    width: 400px;
+    background-color: #191c26;
+    flex-direction: column;
+    z-index: 1050;
+    visibility: hidden;
+    bottom: 0;
+    max-width: 100%;
 }
 
-#games h3 {
-    margin: 10px 0 5px;
-    font-size: 125%;
+.game1, .game1-thumb {
+    background-color: #040d25;
 }
 
 #games a:hover h3 {
     color: #d9fa72;
+}
+
+.control-prev, .control-next {
+    bottom: 0;
+    background-color: transparent;
+    border: 0;
+    top: 0;
+    position: absolute;
+    width: 15%;
+    color: #bbc0ce;
+    padding: 0;
+    width: 15%;
+    z-index: 1;
+}
+
+.nav-head {
+    justify-content: space-between;
+    padding: 15px;
+    align-items: center;
+    display: flex;
+}
+
+#menu a, #lang, #games a {
+    color: #f4f5f8;
+    text-decoration: none;
+}
+
+.nav-head h2 {
+    line-height: 150%;
+    margin: 0;
+}
+
+#empty {
+    display: none;
+}
+
+.nav-end.show {
+    transform: translateX(0);
+}
+
+header nav {
+    margin-top: 15px;
+}
+
+main h1, main h2 {
+    font-size: 160%;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 main p, footer {
@@ -187,14 +182,132 @@ main p, footer {
     margin-bottom: 0;
 }
 
-#empty {
-    display: none;
+.control-prev {
+    left: 0;
 }
 
-.v-hidden {
-    display: none;
+#games {
+    margin-top: 35px;
 }
 
-footer {
-    font-size: 90%;
+.prev-icon, .next-icon {
+    font-size: 200%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-end {
+        transition: none;
+    }
+}
+
+.control-prev:hover, .control-next:hover {
+    color: #f4f5f8;
+}
+
+#search, header .navbar-toggler {
+    color: #f4f5f8;
+    border: 0;
+    background-color: #232735;
+}
+
+#games h3 {
+    font-size: 125%;
+    margin: 10px 0 5px;
+}
+
+/* 로또 번호 뽑기 */
+#lotto {
+    max-width: 750px;
+    text-align: center;
+}
+
+#lotto > a {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #bbc0ce;
+    text-decoration: none;
+}
+
+#lotto > p {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+#balls {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 30px 0;
+}
+
+#lotto .ball {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #232735;
+    font-size: 125%;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+#lotto .btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 0;
+}
+
+#pick .modal-content {
+    border: 0;
+    border-radius: 0;
+    background-color: #191c26;
+    color: #f4f5f8;
+}
+
+#pick .modal-header, #pick .modal-footer {
+    border: 0;
+}
+
+#pick .modal-title {
+    font-size: 125%;
+}
+
+#pick .modal-header button {
+    border: 0;
+    background-color: transparent;
+    color: #f4f5f8;
+    font-size: 150%;
+}
+
+#pick p {
+    color: #c2c6d2;
+}
+
+#nums label {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    margin: 5px;
+    border: 0;
+    border-radius: 0;
+    background-color: #303647;
+    color: #f4f5f8;
+    line-height: 35px;
+}
+
+#nums input:checked + label {
+    background-color: #d9fa72;
+    color: #182028;
+}
+
+#pick .modal-footer .btn {
+    border-radius: 0;
+}
+
+@media (min-width: 580px) {
+    #lotto .ball {
+        width: 60px;
+        height: 60px;
+        font-size: 160%;
+        line-height: 60px;
+    }
 }
